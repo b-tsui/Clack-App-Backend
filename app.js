@@ -13,8 +13,7 @@ app.set('view engine', 'pug');
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use(cors({ origin: "http://http://clackapp.herokuapp.com" }));
-app.options('*', cors())
+app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
