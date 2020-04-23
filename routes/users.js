@@ -2,8 +2,9 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const { check } = require("express-validator");
 const { getUserToken, requireAuth } = require("../auth");
-const db = require("../db/models");
 
+//Imports database models
+const db = require("../db/models");
 const { User, ChannelUser } = db;
 
 const router = express.Router();
@@ -16,10 +17,13 @@ const userNotFoundError = id => {
     return err;
 };
 
+
+//Checks to see if a fullName is provided
 const validateFullName = check("fullName")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a name");
 
+//Checks to see if email and password are provided
 const validateEmailAndPassword = [
     check("email")
         .exists({ checkFalsy: true })
@@ -30,6 +34,7 @@ const validateEmailAndPassword = [
         .withMessage("Please provide a password.")
 ];
 
+//Sends back the fullName & email of a particular user
 router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
     const userId = parseInt(req.params.id, 10);
     const user = await User.findByPk(userId);
@@ -41,7 +46,8 @@ router.get('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
     }
 }))
 
-
+//Creates a new user and sends back a 201 status, along with the access_token
+//and user_id
 router.post(
     "/",
     validateFullName,
@@ -60,6 +66,8 @@ router.post(
     })
 );
 
+//Given a particular user's email and password, checks to see if the credentials
+//match what is stored in the database
 router.post("/token", validateEmailAndPassword, asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({
@@ -67,6 +75,7 @@ router.post("/token", validateEmailAndPassword, asyncHandler(async (req, res, ne
             email,
         },
     });
+
     if (!user || !user.validatePassword(password)) {
         const err = new Error("Login failed");
         err.status = 401;
@@ -78,6 +87,7 @@ router.post("/token", validateEmailAndPassword, asyncHandler(async (req, res, ne
     res.json({ token, user: { id: user.id, name: user.fullName } });
 }));
 
+//Update a user's fullName and/or email
 router.put('/:id(\\d+)', handleValidationErrors, asyncHandler(async (req, res, next) => {
     const { fullName,
         email,
@@ -93,6 +103,7 @@ router.put('/:id(\\d+)', handleValidationErrors, asyncHandler(async (req, res, n
     }
 }));
 
+//Delete a user's account
 router.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
     const userId = parseInt(req.params.id, 10);
     const user = await User.findByPk(userId);

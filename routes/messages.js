@@ -2,13 +2,14 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const { check } = require("express-validator");
 const { getUserToken, requireAuth } = require("../auth");
-const db = require("../db/models");
 
+const db = require("../db/models");
 const { Channel, User, Message, ChannelUser } = db;
 
 const router = express.Router();
 const { asyncHandler, handleValidationErrors } = require("../utils");
 
+//Creates a new error object if user is not authorized
 const userPermissionError = () => {
     const err = Error('You do not have permission to do this');
     err.title = "User alert.";
@@ -16,6 +17,7 @@ const userPermissionError = () => {
     return err;
 };
 
+//Creates a new message for a particular channel
 router.post('/channels/:channelId/messages', asyncHandler(async (req, res) => {
     const { message, userId } = req.body;
     const channelId = parseInt(req.params.channelId, 10);
@@ -23,6 +25,7 @@ router.post('/channels/:channelId/messages', asyncHandler(async (req, res) => {
     res.status(201).json({ newMessage });
 }));
 
+//Edits a single message
 router.put('/messages/:id', asyncHandler(async (req, res, next) => {
     const { userId, message } = req.body;
     const id = parseInt(req.params.id, 10);
@@ -35,6 +38,7 @@ router.put('/messages/:id', asyncHandler(async (req, res, next) => {
     }
 }));
 
+//Deletes a single message
 router.delete('/messages/:id', asyncHandler(async (req, res, next) => {
     const { userId } = req.body;
     const id = parseInt(req.params.id, 10);

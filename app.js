@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require('cookie-parser');
-const cors = require("cors")
+const cors = require("cors");
 
 const app = express();
 const usersRouter = require('./routes/users');
@@ -28,8 +28,6 @@ app.use((req, res, next) => {
     next(error);
 });
 
-// Custom error handlers.
-
 // Generic error handler.
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
@@ -40,7 +38,5 @@ app.use((err, req, res, next) => {
         stack: isProduction ? null : err.stack
     });
 });
-
-
 
 module.exports = app;

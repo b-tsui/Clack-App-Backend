@@ -31,6 +31,7 @@ router.get('/', asyncHandler(async (req, res) => {
 //     res.json(dmChannels)
 // }))
 
+//returns list of members in a channel at particular channelId
 router.get('/:channelId/members', asyncHandler(async (req, res) => {
     const channelId = parseInt(req.params.channelId, 10);
     const members = await Channel.findAll({
@@ -41,6 +42,7 @@ router.get('/:channelId/members', asyncHandler(async (req, res) => {
     res.json({ Users });
 }));
 
+//returns all messages in a given channel at channelId chronologically ordered
 router.get('/:channelId/messages', asyncHandler(async (req, res) => {
     const channelId = parseInt(req.params.channelId, 10);
     const channelMessages = await Channel.findAll({
@@ -60,7 +62,7 @@ router.get('/:channelId/messages', asyncHandler(async (req, res) => {
     res.json({ Messages });
 }));
 
-
+//creates a new channel
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const { userId, name, isDM, } = req.body;
     const channel = await Channel.create({ userId, name, isDM });
@@ -68,6 +70,8 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     res.status(204).json({ channel });
 }));
 
+//updates a channel name, checks to see if user's id matches with "owner" of channel
+//userId get passed in from the fetch on front end via local storage
 router.put('/:channelId', asyncHandler(async (req, res, next) => {
     const { userId, name } = req.body; //userId should be passed into the request
     const channelId = parseInt(req.params.channelId, 10);
@@ -80,6 +84,8 @@ router.put('/:channelId', asyncHandler(async (req, res, next) => {
     }
 }));
 
+//deltes a channel, checks to see if user's id matches with "owner" of channel
+//userId get passed in from the fetch on front end via local storage
 router.delete('/:channelId', asyncHandler(async (req, res, next) => {
     const { userId } = req.body; //userId should be passed into the request
     const channelId = parseInt(req.params.channelId, 10);
