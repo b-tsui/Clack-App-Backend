@@ -67,6 +67,7 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const { userId, name, isDM, } = req.body;
     const channel = await Channel.create({ userId, name, isDM });
     const channelUsers = await ChannelUser.create({ userId, channelId: channel.dataValues.id })
+    const newMessage = await Message.create({ message: `Welcome to channel: ${name}!`, userId: 2, channelId: channel.dataValue.id })
     res.status(201).json({ channel });
 }));
 
