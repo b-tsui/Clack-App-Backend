@@ -67,7 +67,7 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const { userId, name, isDM, } = req.body;
     const channel = await Channel.create({ userId, name, isDM });
     const channelUsers = await ChannelUser.create({ userId, channelId: channel.dataValues.id })
-    res.status(204).json({ channelId: channel.dataValues.id });
+    res.status(201).json({ channel });
 }));
 
 //updates a channel name, checks to see if user's id matches with "owner" of channel
