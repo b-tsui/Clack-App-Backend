@@ -13,7 +13,9 @@ app.set('view engine', 'pug');
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use(cors());
+app.use(cors({
+    methods: 'GET,PUT,POST,DELETE,OPTIONS'
+}));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
