@@ -14,7 +14,10 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use(cors({
-    methods: 'GET,PUT,POST,DELETE,OPTIONS'
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
 }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
