@@ -22,8 +22,8 @@ module.exports = {
       },
       {
         fullName: 'Lisa Kang',
-        email: 'test@test.com',
-        hashedPassword: bcrypt.hashSync('test1'),
+        email: 'lisa@lisa.com',
+        hashedPassword: bcrypt.hashSync('lisa'),
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -39,8 +39,8 @@ module.exports = {
     );
     const channels = await queryInterface.bulkInsert('Channels', [
       {
-        userId: 2,
-        name: 'Main Channel',
+        userId: 3,
+        name: 'Main',
         isDM: false,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -51,7 +51,14 @@ module.exports = {
         isDM: true,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        userId: 3,
+        name: '🅰️pp 🅰️c🅰️demy',
+        isDM: false,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ],
       { returning: true }
     );
@@ -70,6 +77,12 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 1,
+        channelId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         userId: 2,
         channelId: 1,
         createdAt: new Date(),
@@ -82,6 +95,12 @@ module.exports = {
         updatedAt: new Date()
       },
       {
+        userId: 2,
+        channelId: 3,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
         userId: 3,
         channelId: 1,
         createdAt: new Date(),
@@ -90,6 +109,12 @@ module.exports = {
       {
         userId: 3,
         channelId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        userId: 3,
+        channelId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -98,14 +123,14 @@ module.exports = {
     );
     return queryInterface.bulkInsert('Messages', [
       {
-        message: "This is a test message from brandon to main chat",
+        message: "Welcome to the Main Channel!",
         userId: 3,
         channelId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        message: "Test message from lisa to the main",
+        message: "Hello World!",
         userId: 2,
         channelId: 1,
         createdAt: new Date(),
@@ -122,6 +147,13 @@ module.exports = {
         message: "I like poop",
         userId: 3,
         channelId: 2,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        message: "Welcome to #🅰️pp 🅰️c🅰️demy",
+        userId: 3,
+        channelId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       }
