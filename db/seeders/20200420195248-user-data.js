@@ -16,21 +16,21 @@ module.exports = {
       {
         fullName: 'Demo User',
         email: 'demo@demo.com',
-        hashedPassword: bcrypt.hashSync('demo'),
+        hashedPassword: '$2a$10$MK9SVERyYTjeeXzLn/dHpupTk0ct7XpexZI/GFuGKq4I74bb.WsNe',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         fullName: 'Lisa Kang',
         email: 'lisa@lisa.com',
-        hashedPassword: bcrypt.hashSync('lisa'),
+        hashedPassword: '$2y$10$B/Ns.LMUHet69Kn5cVCRSuxH7k4AhPDJrWq6g6Ya54EWtSMBay.He',
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         fullName: 'Brandon Tsui',
         email: 'b@test.com',
-        hashedPassword: bcrypt.hashSync("hunter2"),
+        hashedPassword: '$2y$10$hksjNbesqwdN8GvxK4ogTOmmCjLWg.YmQ/4ra0DePQi5lvzhUriL6',
         createdAt: new Date(),
         updatedAt: new Date()
       }
