@@ -66,8 +66,8 @@ router.get('/:channelId/messages', asyncHandler(async (req, res) => {
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const { userId, name, isDM, } = req.body;
     const channel = await Channel.create({ userId, name, isDM });
-    const channelUsers = await ChannelUser.create({ userId, channelId: channel.dataValues.id })
-    const newMessage = await Message.create({ message: `I've created channel: ${name}!`, userId, channelId: channel.dataValues.id })
+    const channelUsers = await ChannelUser.create({ userId, channelId: channel.dataValues.id });
+    const newMessage = await Message.create({ message: `I've created channel: ${name}!`, userId, channelId: channel.dataValues.id });
     res.status(201).json({ channel });
 }));
 

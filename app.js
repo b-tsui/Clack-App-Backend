@@ -13,12 +13,7 @@ app.set('view engine', 'pug');
 app.use(morgan("dev"));
 app.use(express.json());
 
-app.use(cors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-}));
+app.use(cors());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
